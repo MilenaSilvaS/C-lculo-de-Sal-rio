@@ -19,14 +19,22 @@ namespace Cálculo_de_Salário
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            RadioButton rbnTurno = gbxTurno.Controls.OfType<RadioButton>().
-                SingleOrDefault(r => r.Checked);
-            RadioButton rbnCategoria = gbxCategoria.Controls.
-                OfType<RadioButton>().SingleOrDefault(rbnCalouro => rbnCalouro.Checked);
+            if (txtSalarioM.Text == "" || txtHorasT.Text == "")
+            {
+                MessageBox.Show("Não deixe os campos em branco!");
+            }
+            else
+            {
+                lbxResumo.Items.Clear();
+                RadioButton rbnTurno = gbxTurno.Controls.OfType<RadioButton>().
+                    SingleOrDefault(r => r.Checked);
+                RadioButton rbnCategoria = gbxCategoria.Controls.
+                    OfType<RadioButton>().SingleOrDefault(rbnCalouro => rbnCalouro.Checked);
 
-            RealizarProcessamento(rbnTurno, rbnCategoria,
-                Convert.ToDouble(txtHorasT.Text),
-                Convert.ToDouble(txtSalarioM.Text));
+                RealizarProcessamento(rbnTurno, rbnCategoria,
+                    Convert.ToDouble(txtHorasT.Text),
+                    Convert.ToDouble(txtSalarioM.Text));
+            }
         }
         private void RealizarProcessamento
          (RadioButton rbnTurno, RadioButton rbnCategoria, double horasTrabalhadas, Double ValorSalarioMinimo)
@@ -102,6 +110,7 @@ namespace Cálculo_de_Salário
             double valorGratificacao, double valorAuxilioAlimentacao,
             double valorSalarioLiquido)
         {
+            
             txtSituacaoEstagiario.Text = GetSituacaoEstagiario(valorSalarioLiquido);
             lbxResumo.Items.Add(String.Format("{0,-29}{1,12:C}",
                 "valor do coeficiente:", valorCoeficiente));
